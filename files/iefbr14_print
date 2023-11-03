@@ -1,0 +1,2 @@
+echo "zero"
+exit 0
