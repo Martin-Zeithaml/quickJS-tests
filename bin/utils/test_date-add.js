@@ -22,7 +22,6 @@ function addDays(theDate, days, format) {
 
 export function test_dateAdd(print){
     const dateAddRexx = "../bin/utils/date-add.rex";
-    console.log(dateAddRexx);
     const TESTS = {
         t1: {
             expected: 0,

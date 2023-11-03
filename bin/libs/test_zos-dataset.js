@@ -36,6 +36,7 @@ export function test_validDataSetName(print){
                 'ZOWE-2.#10.#0.JCLLIB',
                 '#-',
                 '#-@.ABC-D.$$$$',
+                'A',
                 'A2345678.A2345678.A2345678.A2345678.A2345678'
             ]
         },

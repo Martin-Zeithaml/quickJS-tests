@@ -36,10 +36,11 @@ let rc = 0
 TEST_ALL.forEach(testFunction => {
     if (typeof testFunction === 'function') {
         rc += testFunction(PRINT);
+        log.box(`${testFunction.name} RC=${rc}`);
     } else {
-        console.log(log.PURPLE + `${testFunction.name} is not a function. Skipping the test...` + log.RESET);
+        log.box(`${testFunction.name} is not a function. Skipping the test...`);
     }
 })
 
-console.log("\n" + '='.repeat(32));
-console.log(`Errors: ${rc}\n`);
+console.log();
+log.box(`<<< Total number of error: ${rc} >>>`);
