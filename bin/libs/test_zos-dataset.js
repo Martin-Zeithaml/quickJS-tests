@@ -103,7 +103,7 @@ export function test_tsoIsDatasetExists(print){
         const parms = TESTS[test].ds;
         const expected = TESTS[test].expected;
         const result = zosdataset.tsoIsDatasetExists(parms);
-        rc += log.infoAndErr(print, 'bin/libs/zos-dataset', 'isTsoDatasetExists', parms, result, expected);
+        rc += log.infoAndErr(print, 'bin/libs/zos-dataset', 'tsoIsDatasetExists', parms, result, expected);
     }
     return rc;
 }

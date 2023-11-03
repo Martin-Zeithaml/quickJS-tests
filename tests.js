@@ -4,6 +4,7 @@ import * as tzos from './bin/libs/test_zos';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutils from './bin/utils/test_date-add';
+import * as log from './log'
 
 const PRINT = true;
 
@@ -28,13 +29,17 @@ const TEST_ZOSFS = [ tzosfs.test_getFileEncoding ];
 const TEST_UTILS = [ tutils.test_dateAdd ];
 
 let TEST_ALL = [];
-TEST_ALL = TEST_ZOSFS.concat(TEST_FS, TEST_SHELL, TEST_ZOS, TEST_ZOSFS, TEST_ZOSDATASET, TEST_UTILS);
+TEST_ALL = TEST_ALL.concat(TEST_FS, TEST_SHELL, TEST_ZOS, TEST_ZOSFS, TEST_ZOSDATASET, TEST_UTILS);
 
-let result = 0
+let rc = 0
 
-TEST_ALL.forEach(testFunction =>{
-    result += testFunction(PRINT);
+TEST_ALL.forEach(testFunction => {
+    if (typeof testFunction === 'function') {
+        rc += testFunction(PRINT);
+    } else {
+        console.log(log.PURPLE + `${testFunction.name} is not a function. Skipping the test...` + log.RESET);
+    }
 })
 
 console.log("\n" + '='.repeat(32));
-console.log(`Errors: ${result}\n`);
+console.log(`Errors: ${rc}\n`);
