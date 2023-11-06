@@ -2,19 +2,41 @@ import * as zos from '../../../bin/libs/zos';
 import * as log from '../../log';
 
 export function test_tsoCommand(print) {
-    const parm = "LISTDS '1'"
-    const expected = "LISTDS '1'\nIKJ56709I INVALID DATA SET NAME, '1'";
+    const TESTS = {
+        t1: {
+            parms: "LISTDS '1'",
+            expected: "LISTDS '1'\nIKJ56709I INVALID DATA SET NAME, '1'" 
+        },
+        t2: {
+            parms: "HELP",
+            expected: 0
+        },
+        t3: {
+            parms: "",
+            expected: 255
+        }
+    }
     
-    const result = zos.tsoCommand(parm);
-
     let infos = [];
     let errors = [];
-    const formattedResults = log.infoAndErr(print, 'bin/libs/zos', 'tsoCommand', parm, result.out, expected);
 
-    if (formattedResults.info != null)
-        infos.push(formattedResults.info);
-    if (formattedResults.error != null)
-        errors.push(formattedResults.error);
+    for (let test in TESTS){
+        const parms = TESTS[test].parms;
+        const result = zos.tsoCommand(parms);
+        let resultToCheck;
+        const expected = TESTS[test].expected;
+        if ((typeof expected) == 'number'){
+            resultToCheck = result.rc;
+        } else {
+            resultToCheck = result.out;
+        }
+        const formattedResults = log.infoAndErr(print, 'bin/libs/zos', 'tsoCommand', parms, resultToCheck, expected);
+
+        if (formattedResults.info != null)
+            infos.push(formattedResults.info);
+        if (formattedResults.error != null)
+            errors.push(formattedResults.error);
+    }
 
     return { infos, errors }
 }
