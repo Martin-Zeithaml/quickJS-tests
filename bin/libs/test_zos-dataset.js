@@ -13,16 +13,22 @@ export function test_validDataSetMemberName(print){
         }
     }
 
-    let rc = 0;
+    let infos = [];
+    let errors = [];
+    let formattedResults;
     for (let test in TESTS) {
         for (let i = 0; i < TESTS[test].members.length; i++){
             const parms = TESTS[test].members[i];
             const expected = TESTS[test].expected;
             const result = zosdataset.validDatasetMemberName(parms);
-            rc += log.infoAndErr(print, 'bin/libs/zos-dataset', 'validDatasetMemberName', parms, result, expected);
+            formattedResults = log.infoAndErr(print, 'bin/libs/zos-dataset', 'validDatasetMemberName', parms, result, expected);
+            if (formattedResults.info != null)
+                infos.push(formattedResults.info);
+            if (formattedResults.error != null)
+                errors.push(formattedResults.error);
         }
     }
-    return rc;
+    return { infos, errors };
 }
 
 export function test_validDataSetName(print){
@@ -55,16 +61,22 @@ export function test_validDataSetName(print){
         }
     }
 
-    let rc = 0;
+    let infos = [];
+    let errors = [];
+    let formattedResults;
     for (let test in TESTS){
         for (let i = 0; i < TESTS[test].ds.length; i++){
             const parms = TESTS[test].ds[i];
             const expected = TESTS[test].expected;
             const result = zosdataset.validDatasetName(TESTS[test].ds[i]);
-            rc += log.infoAndErr(print, 'bin/libs/zos-dataset', 'validDatasetName', parms, result, expected);
+            formattedResults = log.infoAndErr(print, 'bin/libs/zos-dataset', 'validDatasetName', parms, result, expected);
+            if (formattedResults.info != null)
+                infos.push(formattedResults.info);
+            if (formattedResults.error != null)
+                errors.push(formattedResults.error);
         }
     }
-    return rc;
+    return { infos, errors }
 }
 
 export function test_isDatasetExists(print){
@@ -79,16 +91,22 @@ export function test_isDatasetExists(print){
         }
     }
 
-    let rc = 0;
+    let infos = [];
+    let errors = [];
+    let formattedResults;
     for (let test in TESTS){
         for (let i = 0; i < TESTS[test].ds; i ++){
             const parms = TESTS[test].ds[i];
             const expected = TESTS[test].expected;
             const result = zosdataset.isDatasetExists(parms);
-            rc += log.infoAndErr(print, 'bin/libs/zos-dataset','isDatasetExists', parms, result, expected);
+            formattedResults = log.infoAndErr(print, 'bin/libs/zos-dataset','isDatasetExists', parms, result, expected);
+            if (formattedResults.info != null)
+                infos.push(formattedResults.info);
+            if (formattedResults.error != null)
+                errors.push(formattedResults.error);
         }   
     }
-    return rc;
+    return { infos, errors }
 }
 
 export function test_tsoIsDatasetExists(print){
@@ -99,12 +117,18 @@ export function test_tsoIsDatasetExists(print){
         t4: { expected: 9, ds: 'A B' }
     }
 
-    let rc = 0; 
+    let infos = [];
+    let errors = [];
+    let formattedResults; 
     for (let test in TESTS){
         const parms = TESTS[test].ds;
         const expected = TESTS[test].expected;
         const result = zosdataset.tsoIsDatasetExists(parms);
-        rc += log.infoAndErr(print, 'bin/libs/zos-dataset', 'tsoIsDatasetExists', parms, result, expected);
+        formattedResults = log.infoAndErr(print, 'bin/libs/zos-dataset', 'tsoIsDatasetExists', parms, result, expected);
+        if (formattedResults.info != null)
+                infos.push(formattedResults.info);
+            if (formattedResults.error != null)
+                errors.push(formattedResults.error);
     }
-    return rc;
+    return { infos, errors }
 }

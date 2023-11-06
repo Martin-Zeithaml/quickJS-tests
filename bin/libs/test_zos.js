@@ -1,25 +1,20 @@
 import * as zos from '../../../bin/libs/zos';
+import * as log from '../../log';
 
-export function test_tsoCommand(print){
-    const EXPECTED_TSOCMD = "LISTDS '1'\nIKJ56709I INVALID DATA SET NAME, '1'";
+export function test_tsoCommand(print) {
+    const parm = "LISTDS '1'"
+    const expected = "LISTDS 1\nIKJ56701I MISSING DATA SET NAME\nIKJ56712I INVALID KEYWORD, 1";
     
-    const result = zos.tsoCommand("LISTDS '1'");
-    
-    if (print){
-        console.log('bin/libs/zos: tsoCommand:');
-        console.log('Expected:');
-        console.log(EXPECTED_TSOCMD);
-        console.log('And got:');
-        console.log(result.out);
-    }
+    const result = zos.tsoCommand(parm);
 
-    if (EXPECTED_TSOCMD != result.out){
-        console.log('bin/libs/zos: tsoCommand:');
-        console.log('Expected:');
-        console.log(EXPECTED_TSOCMD);
-        console.log('But got:');
-        console.log(result.out);
-        return 1;
-    }
-    return 0;
+    let infos = [];
+    let errors = [];
+    const formattedResults = log.infoAndErr(print, 'bin/libs/zos', 'tsoCommand', parm, result.out, expected);
+
+    if (formattedResults.info != null)
+        infos.push(formattedResults.info);
+    if (formattedResults.error != null)
+        errors.push(formattedResults.error);
+
+    return { infos, errors }
 }

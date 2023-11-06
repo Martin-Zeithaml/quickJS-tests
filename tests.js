@@ -31,16 +31,29 @@ const TEST_UTILS = [ tutils.test_dateAdd ];
 let TEST_ALL = [];
 TEST_ALL = TEST_ALL.concat(TEST_FS, TEST_SHELL, TEST_ZOS, TEST_ZOSFS, TEST_ZOSDATASET, TEST_UTILS);
 
-let rc = 0
+let infos = [];
+let errors = [];
+let result;
 
 TEST_ALL.forEach(testFunction => {
     if (typeof testFunction === 'function') {
-        rc += testFunction(PRINT);
-        log.box(`${testFunction.name} RC=${rc}`);
+        result = testFunction(PRINT);
+        infos = infos.concat(result.infos);
+        errors = errors.concat(result.errors);
     } else {
-        log.box(`${testFunction.name} is not a function. Skipping the test...`);
+        console.log(`${testFunction.name} is not a function. Skipping the test...`);
     }
 })
 
+console.log(log.CYAN + '*** INFO ***');
+for (let info in infos){
+    console.log(infos[info]);
+}
+
 console.log();
-log.box(`<<< Total number of error: ${rc} >>>`);
+
+console.log(log.RED + '*** ERROR ***');
+for (let err in errors){
+    console.log(errors[err]);
+}
+console.log(log.RESET);

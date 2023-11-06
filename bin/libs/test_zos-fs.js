@@ -28,16 +28,29 @@ export function test_getFileEncoding(print) {
         t14: { expected: undefined, file: "a".repeat(1023) }
     };
 
+    let infos = [];
+    let errors = [];
+    let formattedResults;
+
     let rc = prepareFiles();
     if (rc != 0) {
-        return log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding.prepareFiles', '', rc, 0); 
+        formattedResults = log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding.prepareFiles', '', rc, 0); 
+        if (formattedResults.info != null)
+            infos.push(formattedResults.info);
+        if (formattedResults.error != null)
+            errors.push(formattedResults.error);
+        return { infos, errors };
     }
 
     for (let test in TESTS){
         const parms = TESTS[test].file;
         const expected = TESTS[test].expected;
         const result = zosfs.getFileEncoding(parms);
-        rc += log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding', parms, result, expected); 
+        formattedResults = log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding', parms, result, expected); 
+        if (formattedResults.info != null)
+            infos.push(formattedResults.info);
+        if (formattedResults.error != null)
+            errors.push(formattedResults.error);
     }
-    return rc;
+    return { infos, errors };
 }

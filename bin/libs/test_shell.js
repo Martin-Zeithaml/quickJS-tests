@@ -1,6 +1,7 @@
 import * as shell from '../../../bin/libs/shell';
+import * as log from '../../log';
 
-export function test_execAnySync() {
+export function test_execAnySync(print) {
     const FUNCTION = [ shell.execOutSync, shell.execErrSync, shell.execOutErrSync ];
     const COMMAND = [
         [], [null], [undefined], [true], [false], [''],
@@ -31,6 +32,9 @@ export function test_execAnySync() {
         ['sleep -1']
     ];
     
+    let infos = [];
+    let errors = [];
+
     FUNCTION.forEach(func => {
         COMMAND.forEach(cmd => {
             if (cmd.length == 1){
@@ -38,7 +42,10 @@ export function test_execAnySync() {
             } else {
                 func(...cmd);
             }
+            if (print) {
+                infos.push(log.msg('bin/libs/shell', `${func.name}`, `${cmd}`, '?', 'no freeze'));
+            }
         });
     });
-    return 0;
+    return { infos, errors }
 }
