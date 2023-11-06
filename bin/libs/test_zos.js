@@ -3,7 +3,7 @@ import * as log from '../../log';
 
 export function test_tsoCommand(print) {
     const parm = "LISTDS '1'"
-    const expected = "LISTDS 1\nIKJ56701I MISSING DATA SET NAME\nIKJ56712I INVALID KEYWORD, 1";
+    const expected = "LISTDS '1'\nIKJ56709I INVALID DATA SET NAME, '1'";
     
     const result = zos.tsoCommand(parm);
 
