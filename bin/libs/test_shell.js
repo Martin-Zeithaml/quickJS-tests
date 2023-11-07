@@ -31,7 +31,6 @@ export function test_execAnySync() {
         ['sleep 1'],
         ['sleep -1']
     ];
-    
     let infos = [];
     let errors = [];
 

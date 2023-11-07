@@ -43,15 +43,15 @@ TEST_ALL.forEach(testFunction => {
     }
 })
 
-console.log(log.CYAN + '*** INFOS ***');
-for (let info in infos){
+console.log(log.CYAN + `*** INFOS(${infos.length}) ***`);
+for (let info in infos) {
     console.log(infos[info]);
 }
 
 console.log();
 
-if (errors.length > 0){
-    console.log(log.RED + '*** ERRORS ***');
+if (errors.length > 0) {
+    console.log(log.RED + `*** ERRORS(${errors.length}) ***`);
     for (let err in errors){
         console.log(errors[err]);
     }

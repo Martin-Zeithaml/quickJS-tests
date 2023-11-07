@@ -27,7 +27,6 @@ export function test_getFileEncoding() {
         t13: { expected: undefined, file: "\"//'SYS1.MACLIB(CVT)\"" },
         t14: { expected: undefined, file: "a".repeat(1023) }
     };
-
     let infos = [];
     let errors = [];
     

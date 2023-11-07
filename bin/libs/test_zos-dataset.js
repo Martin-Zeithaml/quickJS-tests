@@ -1,7 +1,7 @@
 import * as zosdataset from '../../../bin/libs/zos-dataset';
 import * as log from '../../log';
 
-export function test_validDataSetMemberName(){
+export function test_validDataSetMemberName() {
     const TESTS = {
         t1: { 
             expected: true,
@@ -12,7 +12,6 @@ export function test_validDataSetMemberName(){
             members : [ null, undefined, '', '   ', 'INVALIDNAME', '1AAAAA', 'A+B', '1234' ]
         }
     }
-
     let infos = [];
     let errors = [];
     
@@ -28,7 +27,7 @@ export function test_validDataSetMemberName(){
     return { infos, errors };
 }
 
-export function test_validDataSetName(){
+export function test_validDataSetName() {
     const TESTS = {
         t1: { 
             expected: true,
@@ -57,7 +56,6 @@ export function test_validDataSetName(){
             ]
         }
     }
-
     let infos = [];
     let errors = [];
 
@@ -73,7 +71,7 @@ export function test_validDataSetName(){
     return { infos, errors }
 }
 
-export function test_isDatasetExists(){
+export function test_isDatasetExists() {
     const TESTS = {
         t1: {
             expected: true,
@@ -84,7 +82,6 @@ export function test_isDatasetExists(){
             ds: [ '', '  ', null, undefined, 'C:\Program Files', "/u/users/" ]
         }
     }
-
     let infos = [];
     let errors = [];
 
@@ -100,14 +97,13 @@ export function test_isDatasetExists(){
     return { infos, errors }
 }
 
-export function test_tsoIsDatasetExists(){
+export function test_tsoIsDatasetExists() {
     const TESTS = {
         t1: { expected: 0, ds: 'SYS1.MACLIB'},
         t2: { expected: 1, ds: 'SYS1000.ASDF.QWER.P9999999' },
         t3: { expected: 9, ds: 'AAAAAAAAA' },
         t4: { expected: 9, ds: 'A B' }
     }
-
     let infos = [];
     let errors = [];
 

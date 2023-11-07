@@ -15,8 +15,7 @@ export function test_tsoCommand() {
             parms: "",
             expected: 255
         }
-    }
-    
+    }    
     let infos = [];
     let errors = [];
 

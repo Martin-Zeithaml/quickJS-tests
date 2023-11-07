@@ -20,7 +20,7 @@ function addDays(theDate, days, format) {
     return format;
 }
 
-export function test_dateAdd(){
+export function test_dateAdd() {
     const dateAddRexx = "../bin/utils/date-add.rex";
     const TESTS = {
         t1: {
@@ -58,7 +58,6 @@ export function test_dateAdd(){
             parms: '25 YY--M--D'
         }
     } 
-    
     let infos = [];
     let errors = [];
     
@@ -66,7 +65,7 @@ export function test_dateAdd(){
         let parms;
         let expected;
         if (TESTS[test].expected === 0){
-            for (let i = 0; i < TESTS[test].parms.length; i++){
+            for (let i = 0; i < TESTS[test].parms.length; i++) {
                 expected = addDays(new Date(), TESTS[test].parms[i][0], TESTS[test].parms[i][1]);
                 parms = `${TESTS[test].parms[i][0]} ${TESTS[test].parms[i][1]}`;
                 const result = shell.execOutSync('sh', '-c', `${dateAddRexx} ${parms}`);

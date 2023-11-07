@@ -1,7 +1,7 @@
 import * as fs from '../../../bin/libs/fs';
 import * as log from '../../log';
 
-export function test_resolvePath(print) {
+export function test_resolvePath() {
     const TESTS = {
         /* t1 + t2 -> TypeError: cannot read property 'startsWith' of null/undefined
         t1: { parms: null, expected: '' },
@@ -32,7 +32,7 @@ export function test_resolvePath(print) {
     return { infos, errors }
 }
 
-export function test_convertToAbsolutePath(){
+export function test_convertToAbsolutePath() {
     const TESTS = [null, undefined, '', ' '];
     let infos = [];
     let errors = [];
