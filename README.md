@@ -6,3 +6,7 @@ Set of simple tests for zowe quickJS and libs
 
 ## Tests
 * Start `run`
+
+## To do list
+* Fix the problem with encoding
+* Add more and more and more tests
