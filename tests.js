@@ -6,8 +6,6 @@ import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutils from './bin/utils/test_date-add';
 import * as log from './log'
 
-const PRINT = true;
-
 const TEST_FS = [
     tfs.test_resolvePath, 
     tfs.test_convertToAbsolutePath
@@ -37,7 +35,7 @@ let result;
 
 TEST_ALL.forEach(testFunction => {
     if (typeof testFunction === 'function') {
-        result = testFunction(PRINT);
+        result = testFunction();
         infos = infos.concat(result.infos);
         errors = errors.concat(result.errors);
     } else {
@@ -45,15 +43,18 @@ TEST_ALL.forEach(testFunction => {
     }
 })
 
-console.log(log.CYAN + '*** INFO ***');
+console.log(log.CYAN + '*** INFOS ***');
 for (let info in infos){
     console.log(infos[info]);
 }
 
 console.log();
 
-console.log(log.RED + '*** ERROR ***');
-for (let err in errors){
-    console.log(errors[err]);
+if (errors.length > 0){
+    console.log(log.RED + '*** ERRORS ***');
+    for (let err in errors){
+        console.log(errors[err]);
+    }
 }
+
 console.log(log.RESET);

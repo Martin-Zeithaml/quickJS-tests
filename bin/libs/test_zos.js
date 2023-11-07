@@ -1,7 +1,7 @@
 import * as zos from '../../../bin/libs/zos';
 import * as log from '../../log';
 
-export function test_tsoCommand(print) {
+export function test_tsoCommand() {
     const TESTS = {
         t1: {
             parms: "LISTDS '1'",
@@ -30,12 +30,7 @@ export function test_tsoCommand(print) {
         } else {
             resultToCheck = result.out;
         }
-        const formattedResults = log.infoAndErr(print, 'bin/libs/zos', 'tsoCommand', parms, resultToCheck, expected);
-
-        if (formattedResults.info != null)
-            infos.push(formattedResults.info);
-        if (formattedResults.error != null)
-            errors.push(formattedResults.error);
+        log.infoAndErr(infos, errors, 'bin/libs/zos', 'tsoCommand', parms, resultToCheck, expected);
     }
 
     return { infos, errors }

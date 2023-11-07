@@ -20,7 +20,7 @@ function addDays(theDate, days, format) {
     return format;
 }
 
-export function test_dateAdd(print){
+export function test_dateAdd(){
     const dateAddRexx = "../bin/utils/date-add.rex";
     const TESTS = {
         t1: {
@@ -61,7 +61,7 @@ export function test_dateAdd(print){
     
     let infos = [];
     let errors = [];
-    let formattedResults;
+    
     for (let test in TESTS){
         let parms;
         let expected;
@@ -70,22 +70,15 @@ export function test_dateAdd(print){
                 expected = addDays(new Date(), TESTS[test].parms[i][0], TESTS[test].parms[i][1]);
                 parms = `${TESTS[test].parms[i][0]} ${TESTS[test].parms[i][1]}`;
                 const result = shell.execOutSync('sh', '-c', `${dateAddRexx} ${parms}`);
-                formattedResults = log.infoAndErr(print, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
-                if (formattedResults.info != null)
-                    infos.push(formattedResults.info);
-                if (formattedResults.error != null)
-                    errors.push(formattedResults.error);
+                log.infoAndErr(infos, errors, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
             }
         } else {
             parms = TESTS[test].parms;
             expected = TESTS[test].expected;
             const result = shell.execOutSync('sh', '-c', `${dateAddRexx} ${parms}`);
-            formattedResults = log.infoAndErr(print, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
-            if (formattedResults.info != null)
-                infos.push(formattedResults.info);
-            if (formattedResults.error != null)
-                errors.push(formattedResults.error);
+            log.infoAndErr(infos, errors, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
         }
     }
+    
     return { infos, errors }
 }

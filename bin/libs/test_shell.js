@@ -1,9 +1,9 @@
 import * as shell from '../../../bin/libs/shell';
 import * as log from '../../log';
 
-export function test_execAnySync(print) {
-    const FUNCTION = [ shell.execOutSync, shell.execErrSync, shell.execOutErrSync ];
-    const COMMAND = [
+export function test_execAnySync() {
+    const FUNCTIONS = [ shell.execOutSync, shell.execErrSync, shell.execOutErrSync ];
+    const COMMANDS = [
         [], [null], [undefined], [true], [false], [''],
         ['a'.repeat(512)],
         ['aaa','bbb','ccc','ddd','eee'],
@@ -35,17 +35,16 @@ export function test_execAnySync(print) {
     let infos = [];
     let errors = [];
 
-    FUNCTION.forEach(func => {
-        COMMAND.forEach(cmd => {
+    FUNCTIONS.forEach(func => {
+        COMMANDS.forEach(cmd => {
             if (cmd.length == 1){
                 func('sh', '-c', cmd);
             } else {
                 func(...cmd);
             }
-            if (print) {
-                infos.push(log.msg('bin/libs/shell', `${func.name}`, `${cmd}`, '?', 'no freeze'));
-            }
+            infos.push(log.msg('bin/libs/shell', `${func.name}`, `${cmd}`, '?', 'no shell freeze'));
         });
     });
+    
     return { infos, errors }
 }

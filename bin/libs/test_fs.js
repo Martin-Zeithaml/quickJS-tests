@@ -17,7 +17,7 @@ export function test_resolvePath(print) {
     }
     let infos = [];
     let errors = [];
-    let formattedResults;
+
     for (let test in TESTS){   
         let result;     
         const parms = TESTS[test].parms;
@@ -26,29 +26,23 @@ export function test_resolvePath(print) {
             result = fs.resolvePath(...parms);        
         else
             result = fs.resolvePath(parms);
-        formattedResults = log.infoAndErr(print, 'bin/libs/fs', 'resolvePath', parms, result, expected);
-        if (formattedResults.info != null)
-            infos.push(formattedResults.info);
-        if (formattedResults.error != null)
-            errors.push(formattedResults.error);
+        log.infoAndErr(infos, errors, 'bin/libs/fs', 'resolvePath', parms, result, expected);
     };
+
     return { infos, errors }
 }
 
-export function test_convertToAbsolutePath(print){
+export function test_convertToAbsolutePath(){
     const TESTS = [null, undefined, '', ' '];
     let infos = [];
     let errors = [];
-    let formattedResults;
+
     for (let i = 0; i < TESTS.length; i++) {
         const parms = TESTS[i];
         const expected = undefined;
         const result = fs.convertToAbsolutePath(parms);
-        formattedResults = log.infoAndErr(print, 'bin/libs/fs', 'convertToAbsolutePath', parms, result, expected); 
-        if (formattedResults.info != null)
-            infos.push(formattedResults.info);
-        if (formattedResults.error != null)
-            errors.push(formattedResults.error);
+        log.infoAndErr(infos, errors, 'bin/libs/fs', 'convertToAbsolutePath', parms, result, expected); 
     };
+    
     return { infos, errors }
 }

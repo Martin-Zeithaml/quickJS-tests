@@ -10,7 +10,7 @@ function prepareFiles() {
         return result.out;
 }
 
-export function test_getFileEncoding(print) {
+export function test_getFileEncoding() {
     const TESTS = { 
         t1: { expected: 819, file: './files/iso.txt' },
         t2: { expected: 1047, file: './files/ibm.txt' },
@@ -30,15 +30,10 @@ export function test_getFileEncoding(print) {
 
     let infos = [];
     let errors = [];
-    let formattedResults;
-
+    
     let rc = prepareFiles();
     if (rc != 0) {
-        formattedResults = log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding.prepareFiles', '', rc, 0); 
-        if (formattedResults.info != null)
-            infos.push(formattedResults.info);
-        if (formattedResults.error != null)
-            errors.push(formattedResults.error);
+        log.infoAndErr(infos, errors, 'bin/libs/zosfs', 'getFileEncoding.prepareFiles', '', rc, 0); 
         return { infos, errors };
     }
 
@@ -46,11 +41,8 @@ export function test_getFileEncoding(print) {
         const parms = TESTS[test].file;
         const expected = TESTS[test].expected;
         const result = zosfs.getFileEncoding(parms);
-        formattedResults = log.infoAndErr(print, 'bin/libs/zosfs', 'getFileEncoding', parms, result, expected); 
-        if (formattedResults.info != null)
-            infos.push(formattedResults.info);
-        if (formattedResults.error != null)
-            errors.push(formattedResults.error);
+        log.infoAndErr(infos, errors, 'bin/libs/zosfs', 'getFileEncoding', parms, result, expected); 
     }
+    
     return { infos, errors };
 }
