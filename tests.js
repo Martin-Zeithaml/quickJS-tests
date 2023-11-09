@@ -1,60 +1,71 @@
+import * as std from 'cm_std';
+
 import * as tfs from './bin/libs/test_fs';
 import * as tshell from './bin/libs/test_shell';
-import * as tzos from './bin/libs/test_zos';
+import * as tstring from './bin/libs/test_string';
+import * as tzoslib from './bin/libs/test_zos';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutils from './bin/utils/test_date-add';
 import * as log from './log'
 
-const TEST_FS = [
-    tfs.test_resolvePath, 
-    tfs.test_convertToAbsolutePath
-];
+function overview(msgArray, header, color) {
+    if (msgArray.length > 0) {
+        console.log(color + header);
+        for (let msg in msgArray) {
+            console.log(msgArray[msg]);
+        }
+        console.log(log.RESET);
+        console.log();
+    }
+}
 
-const TEST_SHELL = [ tshell.test_execAnySync ];
-
-const TEST_ZOS = [ tzos.test_tsoCommand ];
-
-const TEST_ZOSDATASET = [
-    tzosdataset.test_validDataSetName,
-    tzosdataset.test_validDataSetMemberName,
-    tzosdataset.test_isDatasetExists,
-    tzosdataset.test_tsoIsDatasetExists
-];
-
-const TEST_ZOSFS = [ tzosfs.test_getFileEncoding ];
-
-const TEST_UTILS = [ tutils.test_dateAdd ];
-
-let TEST_ALL = [];
-TEST_ALL = TEST_ALL.concat(TEST_FS, TEST_SHELL, TEST_ZOS, TEST_ZOSFS, TEST_ZOSDATASET, TEST_UTILS);
+const TEST = {
+    fs: [ 
+        tfs.test_resolvePath, 
+        tfs.test_convertToAbsolutePath
+    ],
+    shell: [ 
+        tshell.test_execAnySync
+    ],
+    string: [ 
+        tstring.test_escapeDollar,
+        tstring.test_escapeRegExp
+    ],
+    zoslib: [ 
+        tzoslib.test_tsoCommand
+    ],
+    zosdataset: [
+        tzosdataset.test_validDataSetName,
+        tzosdataset.test_validDataSetMemberName,
+        tzosdataset.test_isDatasetExists,
+        tzosdataset.test_tsoIsDatasetExists
+    ],
+    zosfs: [
+        tzosfs.test_getFileEncoding
+    ],
+    utils: [
+        tutils.test_dateAdd
+    ]
+}
 
 let infos = [];
 let errors = [];
 let result;
 
-TEST_ALL.forEach(testFunction => {
-    if (typeof testFunction === 'function') {
-        result = testFunction();
-        infos = infos.concat(result.infos);
-        errors = errors.concat(result.errors);
-    } else {
-        console.log(`${testFunction.name} is not a function. Skipping the test...`);
-    }
-})
+const allTests = std.getenv('QUICK_JS_TESTS_ARGS') == undefined ? true : false;
 
-console.log(log.CYAN + `*** INFOS(${infos.length}) ***`);
-for (let info in infos) {
-    console.log(infos[info]);
-}
-
-console.log();
-
-if (errors.length > 0) {
-    console.log(log.RED + `*** ERRORS(${errors.length}) ***`);
-    for (let err in errors){
-        console.log(errors[err]);
+for (let lib in TEST) {
+    const libInArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
+    if (allTests || libInArg) {
+        for (let testFunction in TEST[lib]) {
+            result = TEST[lib][testFunction]();
+            infos = infos.concat(result.infos);
+            errors = errors.concat(result.errors);
+        }
     }
 }
 
-console.log(log.RESET);
+overview(infos, `*** INFOS(${infos.length}) ***`, log.CYAN);
+
+overview(errors, `*** ERRORS(${errors.length}) ***`, log.RED);

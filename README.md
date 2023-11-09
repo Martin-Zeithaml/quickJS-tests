@@ -5,7 +5,7 @@ Set of simple tests for zowe quickJS and libs
 * To be in placed `zowe.runtimeDirectory`
 
 ## Tests
-* Start `run`
+* Start `run` & enjoy
 
 ## To do list
 * Fix the problem with encoding

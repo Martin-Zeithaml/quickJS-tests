@@ -1,1 +1,11 @@
+#!/bin/sh
+
+if [ "$#" -ne 0 ]; then
+    export QUICK_JS_TESTS_ARGS=$#
+    for var in "$@"; do
+        varUpper=$(echo "${var}" | tr '[:lower:]' '[:upper:]')
+        eval "export "QUICK_JS_TESTS_${varUpper}"=\"${varUpper}\""
+    done    
+fi
+
 ../bin/utils/configmgr -script ./tests.js
