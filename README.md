@@ -6,6 +6,8 @@ Set of simple tests for zowe quickJS and libs
 
 ## Tests
 * Start `run` & enjoy
+  * No parameter - run all tests
+  * Multiple parameter as library name to test specified library, e.g. `run zoslib shell`
 
 ## To do list
 * Fix the problem with encoding
