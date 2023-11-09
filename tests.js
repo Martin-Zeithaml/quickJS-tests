@@ -9,6 +9,17 @@ import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutils from './bin/utils/test_date-add';
 import * as log from './log'
 
+function overview(msgArray, header, color) {
+    if (msgArray.length > 0) {
+        console.log(color + header);
+        for (let msg in msgArray) {
+            console.log(msgArray[msg]);
+        }
+        console.log(colorReset);
+        console.log();
+    }
+}
+
 const TEST = {
     fs: [ 
         tfs.test_resolvePath, 
@@ -55,18 +66,6 @@ for (let lib in TEST) {
     }
 }
 
-console.log(log.CYAN + `*** INFOS(${infos.length}) ***`);
-for (let info in infos) {
-    console.log(infos[info]);
-}
+overview(infos, `*** INFOS(${infos.length}) ***`, log.CYAN);
 
-console.log();
-
-if (errors.length > 0) {
-    console.log(log.RED + `*** ERRORS(${errors.length}) ***`);
-    for (let err in errors){
-        console.log(errors[err]);
-    }
-}
-
-console.log(log.RESET);
+overview(errors, `*** ERRORS(${errors.length}) ***`, log.RED);
