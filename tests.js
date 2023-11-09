@@ -1,3 +1,5 @@
+import * as std from 'cm_std';
+
 import * as tfs from './bin/libs/test_fs';
 import * as tshell from './bin/libs/test_shell';
 import * as tstring from './bin/libs/test_string';
@@ -40,14 +42,15 @@ let infos = [];
 let errors = [];
 let result;
 
+const allTests = std.getenv('QUICK_JS_TESTS_ARGS') == undefined ? true : false;
+
 for (let lib in TEST) {
-    for (let testFunction in TEST[lib]){
-        if (typeof TEST[lib][testFunction] === 'function') {
+    const libInArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
+    if (allTests || libInArg) {
+        for (let testFunction in TEST[lib]) {
             result = TEST[lib][testFunction]();
             infos = infos.concat(result.infos);
             errors = errors.concat(result.errors);
-        } else {
-            console.log(`${testFunction.name} is not a function. Skipping the test...`);
         }
     }
 }
