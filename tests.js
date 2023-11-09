@@ -69,3 +69,5 @@ for (let lib in TEST) {
 overview(infos, `*** INFOS(${infos.length}) ***`, log.CYAN);
 
 overview(errors, `*** ERRORS(${errors.length}) ***`, log.RED);
+
+std.setenv('QUICK_JS_TESTS_RC', errors.length);

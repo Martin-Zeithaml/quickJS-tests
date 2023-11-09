@@ -1,11 +1,30 @@
 #!/bin/sh
 
+configmgr="../bin/utils/configmgr"
+tests="./tests.js"
+
+for check_file in "${configmgr}" "${tests}"; do
+    if [ ! -f "${check_file}" ]; then
+        echo "File '${check_file}' not found."
+        echo "Verify the repo and location."
+        exit 255
+    fi
+done
+
 if [ "$#" -ne 0 ]; then
-    export QUICK_JS_TESTS_ARGS=$#
-    for var in "$@"; do
-        varUpper=$(echo "${var}" | tr '[:lower:]' '[:upper:]')
-        eval "export "QUICK_JS_TESTS_${varUpper}"=\"${varUpper}\""
-    done    
+    if [ "$#" -eq 1 ] && [ "$1" = "-h" ]; then
+        echo "To run all tests, use no parameter."
+        echo "To run specific test(s), use following parameter(s):"
+        cat "${tests}" | grep ':[ ]*\[' | awk -F: '{ print $1 }'
+        exit 255
+    else
+        export QUICK_JS_TESTS_ARGS=$#
+        for var in "$@"; do
+            varUpper=$(echo "${var}" | tr '[:lower:]' '[:upper:]')
+            eval "export "QUICK_JS_TESTS_${varUpper}"=\"${varUpper}\""
+        done    
+    fi
 fi
 
-../bin/utils/configmgr -script ./tests.js
+${configmgr} -script ${tests}
+exit $QUICK_JS_TESTS_RC
