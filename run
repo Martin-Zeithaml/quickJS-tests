@@ -27,4 +27,3 @@ if [ "$#" -ne 0 ]; then
 fi
 
 ${configmgr} -script ${tests}
-exit $QUICK_JS_TESTS_RC
