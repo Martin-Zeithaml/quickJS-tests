@@ -15,7 +15,7 @@ function overview(msgArray, header, color) {
         for (let msg in msgArray) {
             console.log(msgArray[msg]);
         }
-        console.log(colorReset);
+        console.log(log.RESET);
         console.log();
     }
 }
