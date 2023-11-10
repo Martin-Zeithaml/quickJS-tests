@@ -19,7 +19,7 @@ export function test_escapeDollar() {
     for (let test in TESTS) {
         const parms = TESTS[test].parms;
         const expected = TESTS[test].expected;
-        const result = stringlib.escapeRegExp(parms);
+        const result = stringlib.escapeDollar(parms);
         log.infoAndErr(infos, errors, 'bin/libs/string', 'escapeDollar', parms, result, expected);
     };
 
