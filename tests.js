@@ -56,8 +56,9 @@ let proceed = {};
 
 for (let lib in TEST) {
     let libArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
-    libArg = std.getenv(`QUICK_JS_TESTS_TYPE`) < 0 ? !libArg : libArg;
-    proceed[`${lib}`] = libArg;    
+    if (std.getenv(`QUICK_JS_TESTS_TYPE`) == 'N')
+        libArg = !libArg;
+    proceed[`${lib}`] = libArg;
 }
 
 for (let lib in TEST) {

@@ -48,8 +48,12 @@ fi
 if [ "$((plus*minus))" -ne 0 ]; then
     echo "Only one type of switch (+/-) allowed."
     exit 255
-else 
-    export QUICK_JS_TESTS_TYPE=$((plus-minus))
+else
+    if [ "${plus}" -ne 0 ]; then
+        export QUICK_JS_TESTS_TYPE="P"
+    else
+        export QUICK_JS_TESTS_TYPE="N"
+    fi
 fi
 
 ${configmgr} -script ${tests}
