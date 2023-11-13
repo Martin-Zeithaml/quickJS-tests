@@ -53,22 +53,12 @@ let infos = [];
 let errors = [];
 let result;
 let proceed = {};
-const exOrIn = std.getenv(`QUICK_JS_TESTS_TYPE`);
 
 for (let lib in TEST) {
-    proceed[`${lib}`] = true;
+    let libArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
+    libArg = std.getenv(`QUICK_JS_TESTS_TYPE`) < 0 ? !libArg : libArg;
+    proceed[`${lib}`] = libArg;    
 }
-
-if (exOrIn != 0)
-    for (let lib in TEST) {
-        libArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
-        if ((exOrIn < 0) && (libArg == true)) {
-            proceed[`${lib}`] = false;
-        }
-        if (exOrIn > 0) {
-            proceed[`${lib}`] = libArg;
-        }
-    }
 
 for (let lib in TEST) {
     if (proceed[lib]) {
