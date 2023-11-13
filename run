@@ -11,19 +11,45 @@ for check_file in "${configmgr}" "${tests}"; do
     fi
 done
 
-if [ "$#" -ne 0 ]; then
-    if [ "$#" -eq 1 ] && [ "$1" = "-h" ]; then
-        echo "To run all tests, use no parameter."
-        echo "To run specific test(s), use following parameter(s):"
-        cat "${tests}" | grep ':[ ]*\[' | awk -F: '{ print $1 }'
-        exit 255
-    else
-        export QUICK_JS_TESTS_ARGS=$#
-        for var in "$@"; do
-            varUpper=$(echo "${var}" | tr '[:lower:]' '[:upper:]')
-            eval "export "QUICK_JS_TESTS_${varUpper}"=\"${varUpper}\""
-        done    
-    fi
+if [ $# -eq 1 ] && [ "$1" = "-h" ]; then
+    echo "To run all tests, use no parameter."
+    echo "To run or exclude specific test, use following parameters with prefix '-' (exclude) or optional '+' (include):"
+    cat "${tests}" | grep ':[ ]*\[' | awk -F: '{ print $1 }'
+    exit 255
+fi
+
+plus=0
+minus=0
+
+if [ $# -ne 0 ]; then
+    export QUICK_JS_TESTS_ARGS=$#
+    for var in "$@"; do
+        valid=$(echo $var | grep -E '^([-|+]{0,1})[a-zA-Z0-9_]+$')
+        if [ -z "${valid}" ]; then
+            echo "Parameter must start with '+' (optional) or '-', followed by combination of [a-zA-Z], [0-9] and '_'."
+            exit 255
+        fi
+
+        firstChar=$(echo "$var" | cut -c1)
+        cutIndex=2
+        if [ "${firstChar}" = "-" ]; then
+            minus=$((minus+1))
+        else
+            if [ "${firstChar}" != "+" ]; then
+                cutIndex=1
+            fi
+            plus=$((plus+1))
+        fi
+        varCutUpper=$(echo "${var}" | cut -c${cutIndex}- | tr '[:lower:]' '[:upper:]')
+        eval "export "QUICK_JS_TESTS_${varCutUpper}"=\"${var}\""
+    done    
+fi
+
+if [ "$((plus*minus))" -ne 0 ]; then
+    echo "Only one type of switch (+/-) allowed."
+    exit 255
+else 
+    export QUICK_JS_TESTS_TYPE=$((plus-minus))
 fi
 
 ${configmgr} -script ${tests}
