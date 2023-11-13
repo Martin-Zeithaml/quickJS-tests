@@ -52,12 +52,26 @@ const TEST = {
 let infos = [];
 let errors = [];
 let result;
-
-const allTests = std.getenv('QUICK_JS_TESTS_ARGS') == undefined ? true : false;
+let proceed = {};
+const exOrIn = std.getenv(`QUICK_JS_TESTS_TYPE`);
 
 for (let lib in TEST) {
-    const libInArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
-    if (allTests || libInArg) {
+    proceed[`${lib}`] = true;
+}
+
+if (exOrIn != 0)
+    for (let lib in TEST) {
+        libArg = std.getenv(`QUICK_JS_TESTS_${lib.toUpperCase()}`) == undefined ? false : true;
+        if ((exOrIn < 0) && (libArg == true)) {
+            proceed[`${lib}`] = false;
+        }
+        if (exOrIn > 0) {
+            proceed[`${lib}`] = libArg;
+        }
+    }
+
+for (let lib in TEST) {
+    if (proceed[lib]) {
         for (let testFunction in TEST[lib]) {
             result = TEST[lib][testFunction]();
             infos = infos.concat(result.infos);
