@@ -30,7 +30,8 @@ const TEST = {
     ],
     string: [ 
         tstring.test_escapeDollar,
-        tstring.test_escapeRegExp
+        tstring.test_escapeRegExp,
+        tstring.test_stripZweParms
     ],
     zoslib: [ 
         tzoslib.test_tsoCommand
