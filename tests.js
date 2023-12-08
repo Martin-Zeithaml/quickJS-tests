@@ -6,7 +6,8 @@ import * as tstring from './bin/libs/test_string';
 import * as tzoslib from './bin/libs/test_zos';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
-import * as tutils from './bin/utils/test_date-add';
+import * as tutilsDateAdd from './bin/utils/test_date-add';
+import * as tutilsGetESM from './bin/utils/test_getesm';
 import * as log from './log'
 
 function overview(msgArray, header, color) {
@@ -46,7 +47,8 @@ const TEST = {
         tzosfs.test_getFileEncoding
     ],
     utils: [
-        tutils.test_dateAdd
+        tutilsDateAdd.test_dateAdd,
+        tutilsGetESM.test_getesm
     ]
 }
 
