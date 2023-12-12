@@ -17,7 +17,7 @@ export function overview(msgArray, header, color) {
 }
 
 export function msg(id, parms, result, expected) {
-    if (parms && results && expected)
+    if (parms && result && expected)
         return `${id}(${parms})="${result}" [expected="${expected}"]`;
     else
     return `${id} not defined.`;
