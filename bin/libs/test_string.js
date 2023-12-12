@@ -1,6 +1,8 @@
 import * as stringlib from '../../../bin/libs/string';
 import * as tester from '../../tester';
 
+const FILE = 'bin/libs/string';
+
 export function test_escapeDollar() {
     const TESTS = {
         t1: { parms: null, expected: undefined },
@@ -12,7 +14,7 @@ export function test_escapeDollar() {
         t7: { parms: '!@#$%^&*()', expected: '!@#\\$%^&*()'},
         t800: { parms: '$$$', expected: '\\$\\$\\$'}
     }
-    return tester.process(TESTS, 'bin/libs/string: escapeDollar', stringlib.escapeDollar);
+    return tester.process(TESTS, FILE, stringlib.escapeDollar);
 }
 
 export function test_escapeRegExp() {
@@ -26,7 +28,7 @@ export function test_escapeRegExp() {
         t7: { parms: '[$]', expected: '\\[\\$\\]'},
         t800: { parms: '..::|[Hello]|::..', expected: '\\.\\.::\\|\\[Hello\\]\\|::\\.\\.'}
     }
-    return tester.process(TESTS, 'bin/libs/string: escapeRegExp', stringlib.escapeRegExp);
+    return tester.process(TESTS, FILE, stringlib.escapeRegExp);
 }
 
 export function test_stripZweParms() {
@@ -38,5 +40,5 @@ export function test_stripZweParms() {
         t5: { parms: 'zwe-cli db2-connect --subsys T800', expected: 'zwe-cli db2-connect'},
         t6: { parms: '  Hello, world!  ', expected: 'Hello, world!'}
     }
-    return tester.process(TESTS, 'bin/libs/string: stripZweParms', stringlib.stripZweParms);
+    return tester.process(TESTS, FILE, stringlib.stripZweParms);
 }

@@ -1,6 +1,8 @@
 import * as shell from '../../../bin/libs/shell';
 import * as tester from '../../tester';
 
+const FILE = 'bin/libs/shell'
+
 const EXEC_TESTS = {
     t1: { parms: null, expected: { shell: true } },
     t2: { parms: undefined, expected: { shell: true } },
@@ -35,13 +37,13 @@ const EXEC_TESTS = {
 }
 
 export function test_execOutSync() {
-    return tester.process(EXEC_TESTS, 'bin/libs/shell: execOutSync', shell.execOutSync);
+    return tester.process(EXEC_TESTS, FILE, shell.execOutSync);
 }
 
 export function test_execErrSync() {
-    return tester.process(EXEC_TESTS, 'bin/libs/shell: execErrSync', shell.execErrSync);
+    return tester.process(EXEC_TESTS, FILE, shell.execErrSync);
 }
 
 export function test_execOutErrSync() {
-    return tester.process(EXEC_TESTS, 'bin/libs/shell: execOutErrSync', shell.execOutErrSync);
+    return tester.process(EXEC_TESTS, FILE, shell.execOutErrSync);
 }

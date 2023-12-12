@@ -16,14 +16,15 @@ export function overview(msgArray, header, color) {
     }
 }
 
-export function msg(id, parms, result, expected) {
-    if (parms && result && expected)
-        return `${id}(${parms})="${result}" [expected="${expected}"]`;
-    else
-    return `${id} not defined.`;
+export function msg(file, functionName, parms, result, expected) {
+    return `${file}: ${functionName}(${parms})="${result}" [expected="${expected}"]`;
 }
 
-export function process(tests, id, functionName) {
+export function msgUndefined(file) {
+    return `${file} function not defined.`
+}
+
+export function process(tests, file, functionName) {
     let infos = [];
     let errors = [];
     if (typeof functionName === 'function') {
@@ -44,14 +45,14 @@ export function process(tests, id, functionName) {
                 result = 'executed'
                 expected = 'executed'
             }
-            infos.push(msg(id, parms, result, expected));
+            infos.push(msg(file, functionName.name, parms, result, expected));
             if (result != expected) {
-                errors.push(msg(id, parms, result, expected));
+                errors.push(msg(file, functionName.name, parms, result, expected));
             }
         }
     } else {
-        infos.push(msg(id));
-        errors.push(msg(id));
+        infos.push(msgUndefined(file));
+        errors.push(msgUndefined(file));
     }
     return { infos, errors }
 }

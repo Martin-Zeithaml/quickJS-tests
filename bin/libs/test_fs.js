@@ -1,6 +1,8 @@
 import * as fs from '../../../bin/libs/fs';
 import * as tester from '../../tester';
 
+const FILE = 'bin/libs/fs'
+
 export function test_resolvePath() {
     const TESTS = {
         //t1: { parms: null, expected: '' },
@@ -13,7 +15,7 @@ export function test_resolvePath() {
         t800: { parms: ['/bin/ ', '/libs/'] , expected: '/bin/libs' }, //?
         t9: { parms: [' bin ', ' libs '], expected: '/bin/libs' }, //?
     }  
-    return tester.process(TESTS, 'bin/libs/fs: resolvePath', fs.resolvePath);
+    return tester.process(TESTS, FILE, fs.resolvePath);
 }
 
 export function test_convertToAbsolutePath() {
@@ -24,5 +26,5 @@ export function test_convertToAbsolutePath() {
         t4: { parms: ' ', expected: undefined},
         t5: { parms: '/', expected: '/' },
     }
-    return tester.process(TESTS, 'bin/libs/fs: convertToAbsolutePath', fs.convertToAbsolutePath);     
+    return tester.process(TESTS, FILE, fs.convertToAbsolutePath);     
 }
