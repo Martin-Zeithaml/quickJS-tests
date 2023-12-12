@@ -3,10 +3,8 @@ import * as tester from '../../tester';
 
 export function test_resolvePath() {
     const TESTS = {
-        /* t1 + t2 -> TypeError: cannot read property 'startsWith' of null/undefined
-        t1: { parms: null, expected: '' },
-        t2: { parms: undefined, expected: '' },
-        */
+        //t1: { parms: null, expected: '' },
+        //t2: { parms: undefined, expected: '' },
         t3: { parms: ['/u', '/userid/', '/zowe/'], expected: '/u/userid/zowe' },
         t4: { parms: '', expected: '/' },
         t5: { parms: ' ', expected: '/ ' },

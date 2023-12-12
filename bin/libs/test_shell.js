@@ -35,7 +35,7 @@ const EXEC_TESTS = {
 }
 
 export function test_execOutSync() {
-    return tester(EXEC_TESTS, 'bin/libs/shell: execOutSync', shell.execOutSync);
+    return tester.process(EXEC_TESTS, 'bin/libs/shell: execOutSync', shell.execOutSync);
 }
 
 export function test_execErrSync() {
