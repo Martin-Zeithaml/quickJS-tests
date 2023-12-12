@@ -2,8 +2,8 @@ import * as std from 'cm_std';
 
 import * as tfs from './bin/libs/test_fs';
 import * as tshell from './bin/libs/test_shell';
-/*
 import * as tstring from './bin/libs/test_string';
+/*
 import * as tzoslib from './bin/libs/test_zos';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
