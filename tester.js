@@ -27,7 +27,7 @@ export function msgUndefined(file) {
 function pushResults(infos, errors, file, functionName, parms, result, expected) {
     infos.push(msg(file, functionName, parms, result, expected));
     if (result != expected) {
-        errors.pushpush(msg(file, functionName, parms, result, expected));
+        errors.push(msg(file, functionName, parms, result, expected));
     }
 }
 
