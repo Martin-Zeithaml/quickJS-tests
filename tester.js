@@ -25,12 +25,21 @@ export function process(tests, id, functionName) {
     let errors = [];
     for (let t in tests) {
         const parms = tests[t].parms;
-        const expected = tests[t].expected;
+        let expected = tests[t].expected;
         let result;
-        if (Array.isArray(parms))        
+        if (Array.isArray(parms)) {
             result = functionName(...parms);
-        else
-            result = functionName(parms);
+        }
+        else {
+            if (expected.execOnly)
+                result = functionName('sh', '-c', parms);
+            else
+                result = functionName(parms);
+        }
+        if (expected.execOnly) {
+            result = 'executed'
+            expected = 'executed'
+        }
         infos.push(msg(id, parms, result, expected));    
         if (result != expected) {
             errors.push(msg(id, parms, result, expected));

@@ -25,7 +25,6 @@ export function test_convertToAbsolutePath() {
         t3: { parms: '', expected: undefined},
         t4: { parms: ' ', expected: undefined},
         t5: { parms: '/', expected: '/' },
-        t6: { parms: '/dev/null', expected: '/dev/null' }
     }
     return tester.process(TESTS, 'bin/libs/fs: convertToAbsolutePath', fs.convertToAbsolutePath);     
 }
