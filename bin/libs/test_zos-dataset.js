@@ -18,7 +18,7 @@ export function test_validDataSetMemberName() {
             }
         }
     }
-    return tester.process(TESTS, FILES, zosdataset.validDatasetMemberName);
+    return tester.process(TESTS, FILE, zosdataset.validDatasetMemberName);
 }
 
 export function test_validDataSetName() {
