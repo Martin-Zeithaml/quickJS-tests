@@ -26,7 +26,7 @@ export function msg(id, parms, result, expected) {
 export function process(tests, id, functionName) {
     let infos = [];
     let errors = [];
-    if (typeof functionName !== undefined) {
+    if (typeof functionName === 'function') {
         for (let t in tests) {
             const parms = tests[t].parms;
             let expected = tests[t].expected;
