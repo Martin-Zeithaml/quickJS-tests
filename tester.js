@@ -17,33 +17,41 @@ export function overview(msgArray, header, color) {
 }
 
 export function msg(id, parms, result, expected) {
-    return `${id}(${parms})="${result}" [expected="${expected}"]`;
+    if (parms && results && expected)
+        return `${id}(${parms})="${result}" [expected="${expected}"]`;
+    else
+    return `${id} not defined.`;
 }
 
 export function process(tests, id, functionName) {
     let infos = [];
     let errors = [];
-    for (let t in tests) {
-        const parms = tests[t].parms;
-        let expected = tests[t].expected;
-        let result;
-        if (Array.isArray(parms)) {
-            result = functionName(...parms);
+    if (functionName) {
+        for (let t in tests) {
+            const parms = tests[t].parms;
+            let expected = tests[t].expected;
+            let result;
+            if (Array.isArray(parms)) {
+                result = functionName(...parms);
+            }
+            else {
+                if (tests[t].expected?.shell)
+                    result = functionName('sh', '-c', parms);
+                else
+                    result = functionName(parms);
+            }
+            if (tests[t].expected?.shell) {
+                result = 'executed'
+                expected = 'executed'
+            }
+            infos.push(msg(id, parms, result, expected));
+            if (result != expected) {
+                errors.push(msg(id, parms, result, expected));
+            }
         }
-        else {
-            if (tests[t].expected?.shell)
-                result = functionName('sh', '-c', parms);
-            else
-                result = functionName(parms);
-        }
-        if (tests[t].expected?.shell) {
-            result = 'executed'
-            expected = 'executed'
-        }
-        infos.push(msg(id, parms, result, expected));    
-        if (result != expected) {
-            errors.push(msg(id, parms, result, expected));
-        }
+    } else {
+        infos.push(msg(id, parms, result, expected));
+        errors.push(msg(id, parms, result, expected));
     }
     return { infos, errors }
 }

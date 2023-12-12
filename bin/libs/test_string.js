@@ -38,5 +38,5 @@ export function test_stripZweParms() {
         t5: { parms: 'zwe-cli db2-connect --subsys T800', expected: 'zwe-cli db2-connect'},
         t6: { parms: '  Hello, world!  ', expected: 'Hello, world!'}
     }
-    return tester.process(infos, errors, 'bin/libs/string: stripZweParms', stringlib.stripZweParms);
+    return tester.process(TESTS, 'bin/libs/string: stripZweParms', stringlib.stripZweParms);
 }
