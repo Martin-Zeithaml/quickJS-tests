@@ -5,8 +5,8 @@ import * as tshell from './bin/libs/test_shell';
 import * as tstring from './bin/libs/test_string';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
-/*
 import * as tzoslib from './bin/libs/test_zos';
+/*
 import * as tutilsDateAdd from './bin/utils/test_date-add';
 import * as tutilsGetESM from './bin/utils/test_getesm';
 */
@@ -27,11 +27,9 @@ const TEST = {
         tstring.test_escapeRegExp,
         tstring.test_stripZweParms
     ],
-    /*
     zoslib: [ 
         tzoslib.test_tsoCommand
     ],
-    */
     zosdataset: [
         tzosdataset.test_validDataSetName,
         tzosdataset.test_validDataSetMemberName,

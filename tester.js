@@ -61,6 +61,14 @@ export function process(tests, file, functionName) {
                     result = 'executed'
                     expected = 'executed'
                 }
+                if (tests[t].expected?.rc) {
+                    expected = tests[t].expected.rc
+                    result = result.rc
+                }
+                if (tests[t].expected?.out) {
+                    expected = tests[t].out
+                    result = result.out
+                }
                 pushResults(infos, errors, file, functionName.name, parms, result, expected)
             }
         }
