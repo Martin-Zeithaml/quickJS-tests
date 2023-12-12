@@ -22,12 +22,12 @@ const TEST = {
         tshell.test_execErrSync,
         tshell.test_execOutErrSync
     ],
-    /*
     string: [ 
         tstring.test_escapeDollar,
         tstring.test_escapeRegExp,
         tstring.test_stripZweParms
     ],
+    /*
     zoslib: [ 
         tzoslib.test_tsoCommand
     ],
