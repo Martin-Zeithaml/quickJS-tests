@@ -1,6 +1,8 @@
 import * as zosdataset from '../../../bin/libs/zos-dataset';
 import * as tester from '../../tester';
 
+const FILE = 'bin/libs/zos-dataset';
+
 export function test_validDataSetMemberName() {
     const TESTS = {
         t1: {
