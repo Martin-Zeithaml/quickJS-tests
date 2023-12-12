@@ -4,9 +4,9 @@ import * as tfs from './bin/libs/test_fs';
 import * as tshell from './bin/libs/test_shell';
 import * as tstring from './bin/libs/test_string';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
+import * as tzosfs from './bin/libs/test_zos-fs';
 /*
 import * as tzoslib from './bin/libs/test_zos';
-import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutilsDateAdd from './bin/utils/test_date-add';
 import * as tutilsGetESM from './bin/utils/test_getesm';
 */
@@ -38,10 +38,10 @@ const TEST = {
         tzosdataset.test_isDatasetExists,
         tzosdataset.test_tsoIsDatasetExists
     ],
-    /*
     zosfs: [
         tzosfs.test_getFileEncoding
     ],
+    /*
     utils: [
         tutilsDateAdd.test_dateAdd,
         tutilsGetESM.test_getesm
