@@ -31,12 +31,12 @@ export function process(tests, id, functionName) {
             result = functionName(...parms);
         }
         else {
-            if (expected.shell !== undefined)
+            if (tests[t].expected.shell !== undefined)
                 result = functionName('sh', '-c', parms);
             else
                 result = functionName(parms);
         }
-        if (expected.shell !== undefined) {
+        if (tests[t].expected.shell !== undefined) {
             result = 'executed'
             expected = 'executed'
         }
