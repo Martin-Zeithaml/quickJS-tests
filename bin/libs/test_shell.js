@@ -1,6 +1,10 @@
 import * as shell from '../../../bin/libs/shell';
 import * as log from '../../log';
 
+const TESTS = {
+    t1: { parms: }
+}
+
 export function test_execAnySync() {
     const FUNCTIONS = [ shell.execOutSync, shell.execErrSync, shell.execOutErrSync ];
     const COMMANDS = [

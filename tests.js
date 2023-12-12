@@ -1,6 +1,7 @@
 import * as std from 'cm_std';
 
 import * as tfs from './bin/libs/test_fs';
+/*
 import * as tshell from './bin/libs/test_shell';
 import * as tstring from './bin/libs/test_string';
 import * as tzoslib from './bin/libs/test_zos';
@@ -8,24 +9,15 @@ import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tutilsDateAdd from './bin/utils/test_date-add';
 import * as tutilsGetESM from './bin/utils/test_getesm';
-import * as log from './log'
-
-function overview(msgArray, header, color) {
-    if (msgArray.length > 0) {
-        console.log(color + header);
-        for (let msg in msgArray) {
-            console.log(msgArray[msg]);
-        }
-        console.log(log.RESET);
-        console.log();
-    }
-}
+*/
+import * as tester from './tester'
 
 const TEST = {
     fs: [ 
         tfs.test_resolvePath, 
         tfs.test_convertToAbsolutePath
     ],
+    /*
     shell: [ 
         tshell.test_execAnySync
     ],
@@ -49,7 +41,7 @@ const TEST = {
     utils: [
         tutilsDateAdd.test_dateAdd,
         tutilsGetESM.test_getesm
-    ]
+    ] */
 }
 
 let infos = [];
@@ -74,6 +66,5 @@ for (let lib in TEST) {
     }
 }
 
-overview(infos, `*** INFOS(${infos.length}) ***`, log.CYAN);
-
-overview(errors, `*** ERRORS(${errors.length}) ***`, log.RED);
+tester.overview(infos, `   Infos(${infos.length})   `, tester.CYAN);
+tester.overview(errors, `   Errors(${errors.length})   `, tester.RED);

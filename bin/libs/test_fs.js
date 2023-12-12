@@ -1,5 +1,5 @@
 import * as fs from '../../../bin/libs/fs';
-import * as log from '../../log';
+import * as tester from '../../tester';
 
 export function test_resolvePath() {
     const TESTS = {
@@ -12,37 +12,20 @@ export function test_resolvePath() {
         t5: { parms: ' ', expected: '/ ' },
         t6: { parms: 'C:\\', expected: '/C:\\' },
         t7: { parms: 'bin', expected: '/bin' },
-        t8: { parms: ['/bin/ ', '/libs/'] , expected: '/bin/libs' }, //?
+        t800: { parms: ['/bin/ ', '/libs/'] , expected: '/bin/libs' }, //?
         t9: { parms: [' bin ', ' libs '], expected: '/bin/libs' }, //?
-    }
-    let infos = [];
-    let errors = [];
-
-    for (let test in TESTS){   
-        let result;     
-        const parms = TESTS[test].parms;
-        const expected = TESTS[test].expected;
-        if (Array.isArray(TESTS[test].parms))
-            result = fs.resolvePath(...parms);        
-        else
-            result = fs.resolvePath(parms);
-        log.infoAndErr(infos, errors, 'bin/libs/fs', 'resolvePath', parms, result, expected);
-    };
-
-    return { infos, errors }
+    }  
+    return tester.process(TESTS, 'bin/libs/fs: resolvePath', fs.resolvePath);
 }
 
 export function test_convertToAbsolutePath() {
-    const TESTS = [null, undefined, '', ' '];
-    let infos = [];
-    let errors = [];
-
-    for (let i = 0; i < TESTS.length; i++) {
-        const parms = TESTS[i];
-        const expected = undefined;
-        const result = fs.convertToAbsolutePath(parms);
-        log.infoAndErr(infos, errors, 'bin/libs/fs', 'convertToAbsolutePath', parms, result, expected); 
-    };
-    
-    return { infos, errors }
+    const TESTS = { 
+        t1: { parms: null, expected: undefined },
+        t2: { parms: undefined, expected: undefined },
+        t3: { parms: '', expected: undefined},
+        t4: { parms: ' ', expected: undefined},
+        t5: { parms: '/', expected: '/' },
+        t6: { parms: '/dev/null', expected: '/dev/null' }
+    }
+    return tester.process(TESTS, 'bin/libs/fs: convertToAbsolutePath', fs.convertToAbsolutePath);     
 }

@@ -11,7 +11,7 @@ import * as zosfs from '../../../bin/libs/zos-fs';
 import * as zos from '../../../bin/libs/zos'; !!!
 */
 
-import * as log from '../../log';
+import * as tester from '../../tester';
 
 export function test_!!!() {
 
@@ -19,15 +19,6 @@ export function test_!!!() {
         t1: { parms: 'Hello', expected: 0 },
         t1: { parms: 'World!', expected: 1 }
     }
-    let infos = [];
-    let errors = [];
-
-    for (let test in TESTS) {
-        const parms = TESTS[test].parms;
-        const expected = TESTS[test].expected;
-        const result = ???.!!!(parms);
-        log.infoAndErr(infos, errors, 'bin/libs/???', '!!!', parms, result, expected);
-    };
-
-    return { infos, errors }
+    
+    return tester.process(TESTS, 'bin/libs/???: !!!', ???.!!!);
 }

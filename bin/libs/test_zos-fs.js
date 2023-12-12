@@ -3,7 +3,7 @@ import * as zosfs from '../../../bin/libs/zos-fs';
 import * as log from '../../log';
 
 function prepareFiles() {
-    const result = shell.execOutSync('sh', '-c', './getFileEncoding');
+    const result = shell.execOutSync('sh', '-c', './files/getFileEncoding');
     if (result.rc == 0)
         return 0;
     else

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+for cmd in "mkdir -p directory"\
+    "touch untagged.txt"\
+    "touch ibm.txt"\
+    "chtag -tc IBM-1047 ibm.txt"\
+    "touch iso.txt"\
+    "chtag -tc ISO8859-1 iso.txt"\
+    "ln -sf iso.txt iso_link.txt"
+do
+    $cmd
+    if [ "$?" -ne 0 ]; then
+        echo "FAILURE for ${cmd}"
+        exit 1
+    fi
+done
+
+exit 0
