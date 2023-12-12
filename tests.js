@@ -31,12 +31,14 @@ const TEST = {
     zoslib: [ 
         tzoslib.test_tsoCommand
     ],
+    */
     zosdataset: [
         tzosdataset.test_validDataSetName,
         tzosdataset.test_validDataSetMemberName,
         tzosdataset.test_isDatasetExists,
         tzosdataset.test_tsoIsDatasetExists
     ],
+    /*
     zosfs: [
         tzosfs.test_getFileEncoding
     ],
