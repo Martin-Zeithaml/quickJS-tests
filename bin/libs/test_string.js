@@ -26,7 +26,7 @@ export function test_escapeRegExp() {
         t7: { parms: '[$]', expected: '\\[\\$\\]'},
         t800: { parms: '..::|[Hello]|::..', expected: '\\.\\.::\\|\\[Hello\\]\\|::\\.\\.'}
     }
-    return log.infoAndErr(TESTS, 'bin/libs/string: escapeRegExp', stringlib.escapeRegExp);
+    return tester.process(TESTS, 'bin/libs/string: escapeRegExp', stringlib.escapeRegExp);
 }
 
 export function test_stripZweParms() {
@@ -38,5 +38,5 @@ export function test_stripZweParms() {
         t5: { parms: 'zwe-cli db2-connect --subsys T800', expected: 'zwe-cli db2-connect'},
         t6: { parms: '  Hello, world!  ', expected: 'Hello, world!'}
     }
-    return log.infoAndErr(infos, errors, 'bin/libs/string: stripZweParms', stringlib.stripZweParms);
+    return tester.process(infos, errors, 'bin/libs/string: stripZweParms', stringlib.stripZweParms);
 }
