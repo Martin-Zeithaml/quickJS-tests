@@ -50,8 +50,8 @@ export function process(tests, id, functionName) {
             }
         }
     } else {
-        infos.push(msg(id, parms, result, expected));
-        errors.push(msg(id, parms, result, expected));
+        infos.push(msg(id));
+        errors.push(msg(id));
     }
     return { infos, errors }
 }
