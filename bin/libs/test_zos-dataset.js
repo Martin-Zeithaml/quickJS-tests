@@ -76,10 +76,10 @@ export function test_isDatasetExists() {
 
 export function test_tsoIsDatasetExists() {
     const TESTS = {
-        t1: { expected: 0, ds: 'SYS1.MACLIB'},
-        t2: { expected: 1, ds: 'SYS1000.ASDF.QWER.P9999999' },
-        t3: { expected: 9, ds: 'AAAAAAAAA' },
-        t4: { expected: 9, ds: 'A B' }
+        t1: { parms: 'SYS1.MACLIB', expected: 0},
+        t2: { parms: 'SYS1000.ASDF.QWER.P9999999', expected: 1 },
+        t3: { parms: 'AAAAAAAAA', expected: 9 },
+        t4: { parms: 'A B', expected: 9 }
     }
     return tester.process(TESTS, FILE, zosdataset.tsoIsDatasetExists);
 }
