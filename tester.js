@@ -61,11 +61,11 @@ export function process(tests, file, functionName) {
                     result = 'executed'
                     expected = 'executed'
                 }
-                if (tests[t].expected?.rc) {
+                if (tests[t].expected?.rc !== undefined) {
                     expected = tests[t].expected.rc
                     result = result.rc
                 }
-                if (tests[t].expected?.out) {
+                if (tests[t].expected?.out !== undefined) {
                     expected = tests[t].expected.out
                     result = result.out
                 }
