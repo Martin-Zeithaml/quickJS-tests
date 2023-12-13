@@ -1,9 +1,11 @@
 import * as shell from '../../../bin/libs/shell';
 import * as zosfs from '../../../bin/libs/zos-fs';
-import * as log from '../../log';
+import * as tester from '../../tester';
+
+const FILE = 'bin/libs/zos-fs';
 
 function prepareFiles() {
-    const result = shell.execOutSync('sh', '-c', './getFileEncoding');
+    const result = shell.execOutSync('sh', '-c', './files/getFileEncoding');
     if (result.rc == 0)
         return 0;
     else
@@ -11,37 +13,36 @@ function prepareFiles() {
 }
 
 export function test_getFileEncoding() {
-    const TESTS = { 
-        t1: { expected: 819, file: './files/iso.txt' },
-        t2: { expected: 1047, file: './files/ibm.txt' },
-        t3: { expected: 819, file: './files/iso_link.txt' },
-        t4: { expected: 0, file: './files/untagged.txt' },
-        t5: { expected: undefined, file: './files/directory' },
-        t6: { expected: undefined, file : '/dev/null' },
-        t7: { expected: undefined, file: '/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin' },
-        t800: { expected: undefined, file: undefined },
-        t9: { expected: undefined, file: null },
-        t10: { expected: undefined, file: '/' },
-        t11: { expected: undefined, file: "\x00" },
-        t12: { expected: undefined, file: "\x00" + "HELLO" },
-        t13: { expected: undefined, file: "\"//'SYS1.MACLIB(CVT)\"" },
-        t14: { expected: undefined, file: "a".repeat(1023) }
+    const TESTS = {
+        testset: { 
+            t1: { parms: './files/iso.txt', expected: 819 },
+            t2: { parms: './files/ibm.txt', expected: 1047 },
+            t3: { parms: './files/iso_link.txt', expected: 819 },
+            t4: { parms: './files/untagged.txt', expected: 0 },
+            t5: {
+                parms: {
+                    parmsArray: [
+                        './files/directory',
+                        '/dev/null',
+                        '/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin/bin',
+                        undefined,
+                        null,
+                        '/',
+                        "\x00",
+                        "\x00" + "HELLO",
+                        "\"//'SYS1.MACLIB(CVT)\"",
+                        "a".repeat(1023)
+                    ],
+                    expected: undefined
+                }
+            }
+        }
     };
-    let infos = [];
-    let errors = [];
-    
     let rc = prepareFiles();
     if (rc != 0) {
-        log.infoAndErr(infos, errors, 'bin/libs/zosfs', 'getFileEncoding.prepareFiles', '', rc, 0); 
-        return { infos, errors };
+        console.log('test_zos-fs: getFileEncoding.prepareFiles failed!');
+        console.log(rc.out);
+        return;
     }
-
-    for (let test in TESTS){
-        const parms = TESTS[test].file;
-        const expected = TESTS[test].expected;
-        const result = zosfs.getFileEncoding(parms);
-        log.infoAndErr(infos, errors, 'bin/libs/zosfs', 'getFileEncoding', parms, result, expected); 
-    }
-    
-    return { infos, errors };
+    return tester.process(TESTS, FILE, zosfs.getFileEncoding);
 }
