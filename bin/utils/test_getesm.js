@@ -3,9 +3,12 @@ import * as log from '../../log';
 
 export function test_getesm() {
     const TESTS = {
-        t1: { parms: '-h', expected: { rc: 0, out: false } },
-        t2: { parms: '', expected: { rc: 0, out: true } },
-        t3: { parms: 'asdf', expected: { rc: 1, out: false } }
+        setting : { binary: true},
+        testset: {
+            t1: { parms: '-h', expected: { rc: 0, out: false } },
+            t2: { parms: '', expected: { rc: 0, out: true } },
+            t3: { parms: 'asdf', expected: { rc: 1, out: false } }
+        }
     }
     let infos = [];
     let errors = [];

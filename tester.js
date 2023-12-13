@@ -36,37 +36,37 @@ export function process(tests, file, functionName) {
     let errors = [];
 
     if (typeof functionName === 'function') {
-        for (let t in tests) {
-            if (tests[t].parms?.parmsArray) {
-                let expected = tests[t].parms.expected;
-                for (let i = 0; i < tests[t].parms.parmsArray.length; i++ ) {
-                    const parms = tests[t].parms.parmsArray[i];
+        for (let t in tests['testset']) {
+            if (tests['testset'][t].parms?.parmsArray) {
+                let expected = tests['testset'][t].parms.expected;
+                for (let i = 0; i < tests['testset'][t].parms.parmsArray.length; i++ ) {
+                    const parms = tests['testset'][t].parms.parmsArray[i];
                     const result = functionName(parms);
                     pushResults(infos, errors, file, functionName.name, parms, result, expected);
                 }
             } else {
-                const parms = tests[t].parms;
-                let expected = tests[t].expected;
+                const parms = tests['testset'][t].parms;
+                let expected = tests['testset'][t].expected;
                 let result;
                 if (Array.isArray(parms)) {
                     result = functionName(...parms);
                 }
                 else {
-                    if (tests[t].expected?.shell)
+                    if (tests['setting']?.shell)
                         result = functionName('sh', '-c', parms);
                     else
                         result = functionName(parms);
                 }
-                if (tests[t].expected?.shell) {
+                if (tests['setting']?.shell) {
                     result = 'executed'
                     expected = 'executed'
                 }
-                if (tests[t].expected?.rc !== undefined) {
-                    expected = tests[t].expected.rc
+                if (tests['testset'][t].expected?.rc !== undefined) {
+                    expected = tests['testset'][t].expected.rc
                     result = result.rc
                 }
-                if (tests[t].expected?.out !== undefined) {
-                    expected = tests[t].expected.out
+                if (tests['testset'][t].expected?.out !== undefined) {
+                    expected = tests['testset'][t].expected.out
                     result = result.out
                 }
                 pushResults(infos, errors, file, functionName.name, parms, result, expected)

@@ -1,5 +1,5 @@
 import * as shell from '../../../bin/libs/shell';
-import * as log from '../../log';
+import * as tester from '../../tester';
 
 function addDays(theDate, days, format) {
     const newDate = new Date(theDate.getTime() + days*24*60*60*1000);
@@ -23,61 +23,57 @@ function addDays(theDate, days, format) {
 export function test_dateAdd() {
     const dateAddRexx = "../bin/utils/date-add.rex";
     const TESTS = {
-        t1: {
-            expected: 0,
-            parms : [
-                [ 1, 'YYMMDD' ], [ -1, 'YYYY-MM-DD' ], [ 100, 'YYMMDD' ], [ 1000, 'DD.MM.YYYY' ], [ 720, 'MM!DD!YY']
-            ]
-        },
-        t2: {
-            expected: "ERROR: expected numeric value for days: ''",
-            parms: ''
-        },
-        t3: {
-            expected: "ERROR: invalid date format: '2' is too short", 
-            parms: '1 2'
-        },
-        t4: {
-            expected: "ERROR: expected numeric value for days: 'A'",
-            parms: 'A YY/MM/DD'
-        },
-        t5: {
-            expected: "ERROR: invalid date format: 'YYMM' is too short",
-            parms: '1000 YYMM'
-        },
-        t6: {
-            expected: "ERROR: invalid date format: 'MMDDMM' is missing YY or YYYY (year)",
-            parms: '-10 MMDDMM'
-        },
-        t7: {
-            expected: "ERROR: expected numeric value for days: 'HELLO,'",
-            parms: 'Hello, world' 
-        },
-        t8: {
-            expected: "ERROR: invalid date format: 'YY--M--D' is missing MM (month)",
-            parms: '25 YY--M--D'
-        }
-    } 
-    let infos = [];
-    let errors = [];
-    
-    for (let test in TESTS){
-        let parms;
-        let expected;
-        if (TESTS[test].expected === 0){
-            for (let i = 0; i < TESTS[test].parms.length; i++) {
-                expected = addDays(new Date(), TESTS[test].parms[i][0], TESTS[test].parms[i][1]);
-                parms = `${TESTS[test].parms[i][0]} ${TESTS[test].parms[i][1]}`;
-                const result = shell.execOutSync('sh', '-c', `${dateAddRexx} ${parms}`);
-                log.infoAndErr(infos, errors, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
+        setting : { rexx: true },
+        testset: {
+            t1: {
+                parms : '1 YYMMDD',
+                expected: { out: addDays(new Date(), 1, 'YYMMDD') }
+            },
+            t2: {
+                parms : '-1 YYYY-MM-DD',
+                expected: { out: addDays(new Date(), -1, 'YYYY-MM-DD') }
+            },
+            t3: {
+                parms : '100 YYMMDD',
+                expected: { out: addDays(new Date(), 100, 'YYMMDD') }
+            },
+            t4: {
+                parms : '1000 DD.MM.YYYY',
+                expected: { out: addDays(new Date(), 1000, 'DD.MM.YYYY') }
+            },
+            t5: {
+                parms : '720 MM!DD!YY',
+                expected: { out: addDays(new Date(), 1, 'MM!DD!YY') }
+            },
+            t6: { 
+                parms: '', 
+                expected: { out: "ERROR: expected numeric value for days: ''" },
+            },
+            t7: { 
+                parms: '1 2',
+                expected: { out: "ERROR: invalid date format: '2' is too short", },
+            },
+            t800: {
+                parms: 'A YY/MM/DD',
+                expected: { out: "ERROR: expected numeric value for days: 'A'" },
+            },
+            t9: {
+                parms: '1000 YYMM',
+                expected: { out: "ERROR: invalid date format: 'YYMM' is too short" },
+            },
+            t10: {
+                parms: '-10 MMDDMM',
+                expected: { out: "ERROR: invalid date format: 'MMDDMM' is missing YY or YYYY (year)" },
+            },
+            t11: {
+                parms: 'Hello, world',
+                expected: { out: "ERROR: expected numeric value for days: 'HELLO,'" },
+            },
+            t12: {
+                parms: '25 YY--M--D',
+                expected: { out: "ERROR: invalid date format: 'YY--M--D' is missing MM (month)" },
             }
-        } else {
-            parms = TESTS[test].parms;
-            expected = TESTS[test].expected;
-            const result = shell.execOutSync('sh', '-c', `${dateAddRexx} ${parms}`);
-            log.infoAndErr(infos, errors, 'bin/utils/date-add.rex', 'date-add', parms, result.out, expected)
         }
-    }
-    
-    return { infos, errors }
+    }  
+    return tester.process(TESTS, FILE, dateAddRexx)
 }
