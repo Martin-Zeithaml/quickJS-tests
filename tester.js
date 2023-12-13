@@ -1,3 +1,5 @@
+import * as shell from '../bin/libs/shell';
+
 export const RED = "\u001b[31m";
 export const GREEN = "\u001b[32m";
 export const PURPLE = "\u001b[35m";
