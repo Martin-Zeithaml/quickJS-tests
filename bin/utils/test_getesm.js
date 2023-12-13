@@ -3,6 +3,8 @@ import * as tester from '../../tester';
 
 function getESMRexx(){
     const result = shell.execOutSync('sh', '-c', "./bin/utils/getesm.rexx");
+    console.log(result.rc);
+    console.log(result.out);
     return result.out;
 }
 
