@@ -43,7 +43,7 @@ export function test_dateAdd() {
             },
             t5: {
                 parms : '720 MM!DD!YY',
-                expected: { out: addDays(new Date(), 1, 'MM!DD!YY') }
+                expected: { out: addDays(new Date(), 720, 'MM!DD!YY') }
             },
             t6: { 
                 parms: '', 
