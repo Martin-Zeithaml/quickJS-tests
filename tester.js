@@ -47,6 +47,7 @@ export function process(tests, file, functionName) {
     const functionType = typeof functionName;
     if (functionType === 'function' || functionType === 'string') {
         for (let t in tests['testset']) {
+            
             if (tests['testset'][t].parms?.parmsArray) {
                 let expected = tests['testset'][t].parms.expected;
                 for (let i = 0; i < tests['testset'][t].parms.parmsArray.length; i++ ) {
@@ -58,6 +59,7 @@ export function process(tests, file, functionName) {
                 const parms = tests['testset'][t].parms;
                 let expected = tests['testset'][t].expected;
                 let result;
+
                 if (functionType === 'function') {
                     if (Array.isArray(parms)) {
                         result = functionName(...parms);
@@ -71,23 +73,22 @@ export function process(tests, file, functionName) {
                 } else {
                     result = shell.execOutSync('sh', '-c', `${functionName} ${parms}`)
                 }
+
                 if (tests['setting']?.shell) {
                     result = 'executed'
                     expected = 'executed'
                 }
+
                 if (tests['testset'][t].expected?.rc !== undefined || tests['testset'][t].expected?.out !== undefined) {
                     if (tests['testset'][t].expected?.rc !== undefined) {
                         expected = tests['testset'][t].expected.rc
-                        const resultRC = result.rc
-                        pushResults(infos, errors, file, getFunctionName(functionName), parms, resultRC, expected)
+                        pushResults(infos, errors, file, getFunctionName(functionName), parms, result.rc, expected)
                     }
                     if (tests['testset'][t].expected?.out !== undefined) {
                         expected = tests['testset'][t].expected.out
-                        const resultOut = result.out
-                        pushResults(infos, errors, file, getFunctionName(functionName), parms, resultOut, expected)
+                        pushResults(infos, errors, file, getFunctionName(functionName), parms, result.out, expected)
                     }
                 } else {
-                    console.log('Tady');
                     pushResults(infos, errors, file, getFunctionName(functionName), parms, result, expected)
                 }
             }
