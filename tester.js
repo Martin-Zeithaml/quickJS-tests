@@ -36,8 +36,9 @@ function pushResults(infos, errors, file, functionName, parms, result, expected)
 function getFunctionName(name) {
     if (typeof name === 'function')
         return name.name;
-    if (typeof name === 'string')
-        return name;
+    if (typeof name === 'string') {
+        return name.substring(name.lastIndexOf('/') + 1);
+    }
     return 'Unknown';
 }
 
@@ -47,7 +48,7 @@ export function process(tests, file, functionName) {
     const functionType = typeof functionName;
     if (functionType === 'function' || functionType === 'string') {
         for (let t in tests['testset']) {
-            
+
             if (tests['testset'][t].parms?.parmsArray) {
                 let expected = tests['testset'][t].parms.expected;
                 for (let i = 0; i < tests['testset'][t].parms.parmsArray.length; i++ ) {
