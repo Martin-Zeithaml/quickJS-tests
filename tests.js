@@ -3,13 +3,12 @@ import * as std from 'cm_std';
 import * as tfs from './bin/libs/test_fs';
 import * as tshell from './bin/libs/test_shell';
 import * as tstring from './bin/libs/test_string';
+import * as tutilsDateAdd from './bin/utils/test_date-add';
+import * as tutilsGetESM from './bin/utils/test_getesm';
 import * as tzosdataset from './bin/libs/test_zos-dataset';
 import * as tzosfs from './bin/libs/test_zos-fs';
 import * as tzoslib from './bin/libs/test_zos';
-/*
-import * as tutilsDateAdd from './bin/utils/test_date-add';
-import * as tutilsGetESM from './bin/utils/test_getesm';
-*/
+
 import * as tester from './tester'
 
 const TEST = {
@@ -27,8 +26,9 @@ const TEST = {
         tstring.test_escapeRegExp,
         tstring.test_stripZweParms
     ],
-    zoslib: [ 
-        tzoslib.test_tsoCommand
+    utils: [
+        tutilsDateAdd.test_dateAdd,
+        tutilsGetESM.test_getesm
     ],
     zosdataset: [
         tzosdataset.test_validDataSetName,
@@ -39,11 +39,9 @@ const TEST = {
     zosfs: [
         tzosfs.test_getFileEncoding
     ],
-    /*
-    utils: [
-        tutilsDateAdd.test_dateAdd,
-        tutilsGetESM.test_getesm
-    ] */
+    zoslib: [ 
+        tzoslib.test_tsoCommand
+    ]
 }
 
 let infos = [];

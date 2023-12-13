@@ -83,7 +83,7 @@ export function test_isDatasetExists() {
 export function test_tsoIsDatasetExists() {
     const TESTS = {
         testset: {
-            t1: { parms: 'SYS1.MACLIB', expected: 0},
+            t1: { parms: 'SYS1.MACLIB', expected: 0 },
             t2: { parms: 'SYS1000.ASDF.QWER.P9999999', expected: 1 },
             t3: { parms: 'AAAAAAAAA', expected: 9 },
             t4: { parms: 'A B', expected: 9 }
