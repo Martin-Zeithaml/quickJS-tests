@@ -78,15 +78,16 @@ export function process(tests, file, functionName) {
                 if (tests['testset'][t].expected?.rc !== undefined || tests['testset'][t].expected?.out !== undefined) {
                     if (tests['testset'][t].expected?.rc !== undefined) {
                         expected = tests['testset'][t].expected.rc
-                        result = result.rc
-                        pushResults(infos, errors, file, getFunctionName(functionName), parms, result, expected)
+                        const resultRC = result.rc
+                        pushResults(infos, errors, file, getFunctionName(functionName), parms, resultRC, expected)
                     }
                     if (tests['testset'][t].expected?.out !== undefined) {
                         expected = tests['testset'][t].expected.out
-                        result = result.out
-                        pushResults(infos, errors, file, getFunctionName(functionName), parms, result, expected)
+                        const resultOut = result.out
+                        pushResults(infos, errors, file, getFunctionName(functionName), parms, resultOut, expected)
                     }
                 } else {
+                    console.log('Tady');
                     pushResults(infos, errors, file, getFunctionName(functionName), parms, result, expected)
                 }
             }
