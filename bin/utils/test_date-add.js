@@ -75,5 +75,5 @@ export function test_dateAdd() {
             }
         }
     }  
-    return tester.process(TESTS, FILE, dateAddRexx)
+    return tester.process(TESTS, 'bin/libs/utils', dateAddRexx)
 }

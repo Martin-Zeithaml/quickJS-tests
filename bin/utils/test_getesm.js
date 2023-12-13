@@ -15,5 +15,5 @@ export function test_getesm() {
             t3: { parms: 'asdf', expected: { rc: 1 } }
         }
     }
-    return tester.process(TESTS, FILE, '../bin/utils/getesm');
+    return tester.process(TESTS, 'bin/libs/utils', '../bin/utils/getesm');
 }
