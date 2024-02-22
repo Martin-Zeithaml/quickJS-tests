@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd ./files
 for cmd in "mkdir -p directory"\
     "touch untagged.txt"\
     "touch ibm.txt"\
@@ -14,5 +15,6 @@ do
         exit 1
     fi
 done
+cd ..
 
 exit 0
